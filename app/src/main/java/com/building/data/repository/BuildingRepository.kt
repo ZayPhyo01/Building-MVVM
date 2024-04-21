@@ -3,11 +3,15 @@ package com.building.data.repository
 import com.building.data.datasource.BuildingRemoteDataSource
 import com.building.domain.model.building.BuildingModel
 
-class BuildingRepository {
-
-    private val buildingRemoteDataSource = BuildingRemoteDataSource()
+class BuildingRepository(
+    private val buildingRemoteDataSource: BuildingRemoteDataSource
+) {
 
     fun getBuildingList(): List<BuildingModel> {
         return buildingRemoteDataSource.getBuildingList()
+    }
+
+    fun getBuildingDetail(id: String): BuildingModel {
+        return buildingRemoteDataSource.getBuildingDetail(id)
     }
 }

@@ -7,14 +7,16 @@ import com.building.R
 import com.building.domain.model.building.BuildingModel
 import com.building.ui.viewholder.BuildingViewHolder
 
-class BuildingAdapter : RecyclerView.Adapter<BuildingViewHolder>() {
+class BuildingAdapter(
+    private val onClickDetail: (String) -> Unit
+) : RecyclerView.Adapter<BuildingViewHolder>() {
 
     private var buildingList = emptyList<BuildingModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuildingViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_view_building, parent, false)
-        return BuildingViewHolder(view)
+        return BuildingViewHolder(onClickDetail = onClickDetail, view = view)
     }
 
     override fun getItemCount(): Int {
