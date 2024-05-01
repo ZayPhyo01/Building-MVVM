@@ -12,6 +12,8 @@ import com.building.data.repository.BuildingRepository
 import com.building.data.service.BuildingNetworkService
 import com.building.di.AppContainer
 import com.building.ui.viewmodel.BuildingDetailViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class BuildingDetailActivity : AppCompatActivity() {
 
@@ -26,6 +28,10 @@ class BuildingDetailActivity : AppCompatActivity() {
     }
 
 
+    val buildingDetailViewmodel: BuildingDetailViewModel by viewModel {
+        parametersOf(intent.extras?.getString("id"))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(
@@ -33,17 +39,14 @@ class BuildingDetailActivity : AppCompatActivity() {
         )
 
 
-        val detailId = intent.extras?.getString("id")
+        //val buildingDetailViewmodel = AppContainer().getBuildingDetailViewModel(detailId)
 
-        if (detailId != null) {
-            val buildingDetailViewmodel = AppContainer().getBuildingDetailViewModel(detailId)
-
-            buildingDetailViewmodel.buildingDetailLiveData.observeForever {
-                val buildingName: TextView = findViewById(R.id.tvBuildingName)
-                val buildingLocationAddress: TextView = findViewById(R.id.tvLocation)
-                buildingName.text = it.name
-                buildingLocationAddress.text = it.locationAddress
-            }
+        buildingDetailViewmodel.buildingDetailLiveData.observeForever {
+            val buildingName: TextView = findViewById(R.id.tvBuildingName)
+            val buildingLocationAddress: TextView = findViewById(R.id.tvLocation)
+            buildingName.text = it.name
+            buildingLocationAddress.text = it.locationAddress
         }
+
     }
 }

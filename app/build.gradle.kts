@@ -37,6 +37,8 @@ android {
 
 dependencies {
 
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -45,4 +47,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("io.ktor:ktor-client-core:2.3.10")
+    implementation("io.ktor:ktor-client-cio:2.3.10")
 }
